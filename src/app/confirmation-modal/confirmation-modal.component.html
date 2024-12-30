@@ -1,0 +1,12 @@
+<div class="modal-container">
+  <div class="modal">
+    <h2>{{ actionType === 'update' ? 'Confirm Changes' : (actionType === 'delete' ? 'Confirm Deletion' : 'Confirm Addition') }}</h2>
+    <p>{{ actionType === 'update' ? 'Are you sure you want to save changes?' : (actionType === 'delete' ? 'Are you sure you want to delete?' : 'Are you sure you want to add?') }}</p>
+    <div class="buttons">
+      <button (click)="confirmAction()"><i class="fa fa-check"></i> {{ actionType === 'update' ? 'Save' : (actionType === 'delete' ? 'Delete' : 'Add') }}</button>
+      <button (click)="cancel()"><i class="fa fa-times"></i> Cancel</button>
+    </div>
+  </div>
+</div>
+
+  

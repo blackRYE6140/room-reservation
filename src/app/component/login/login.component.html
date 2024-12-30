@@ -1,0 +1,27 @@
+<div class="body">
+  <div class="container">
+    <div class="image"></div>
+    <div class="content">
+      <h2><div id="animated-text"></div></h2>
+      <div class="input-container">
+        <input type="text" id="username" [(ngModel)]="username" placeholder=" " (blur)="validateUsername()" required pattern="[a-zA-Z]+" (input)="clearErrors()"/>
+        <label for="username"><i class="fa fa-user" style="margin-right: 4px; margin-left: 4px;"> </i>Username</label>
+        <div *ngIf="username === ''" class="error-message">Username is required</div>
+        <div *ngIf="username && !username.match('^[a-zA-Z]+$')" class="error-message">Only letters are allowed in the username</div>
+      </div>
+
+      <div class="input-container">
+        <input type="password" id="password" [(ngModel)]="password" placeholder=" " (blur)="validatePassword()" required (input)="clearErrors()"/>
+        <label for="password"><i class="fa fa-lock" style="margin-right: 4px; margin-left: 4px;"> </i>Password</label>
+        <div *ngIf="password === ''" class="error-message">Password is required</div>
+        <div *ngIf="isError" class="error-message">Incorrect username or password</div>
+      </div>
+
+      <button (click)="login()">
+        <div *ngIf="!isLoggedIn && !isError"><span >Login</span></div>
+        <div *ngIf="isLoggedIn"><i  class="fa fa-check" style="color: black; margin: -10px 2px; font-size:xx-large;" ></i></div>
+        <div *ngIf="isError"><i  class="fa fa-times" style="color: red;  margin: -10px 4.5px; font-size:xx-large;"></i></div>
+      </button>
+    </div>
+  </div> 
+</div>

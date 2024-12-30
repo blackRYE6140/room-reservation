@@ -1,0 +1,102 @@
+$primary-color-light: #ecf0fe;
+$secondary-color-light: #191919;
+
+$primary-color-dark: #000000;
+$secondary-color-dark: #ecf0fe;
+
+$indigo:rgb(53, 16, 133);
+$white:#fff;
+$black:#302f2f;
+$fonce:rgb(209, 209, 209);
+
+
+// Déclaration des variables de box-shadow
+$box-shadow: 0 0 25px rgba(18, 18, 51, 0.356);
+
+
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+
+.body{
+  .head {
+    background-color: $white;
+    height: 5vh;
+    padding: 11.5px;
+    display: flex;
+    justify-content: space-between;
+    h2{
+      color: $indigo;
+      margin-left: 80px;
+    }
+  }
+
+  .container{
+      padding: 2.2% 2% 1% 2%;
+      .container-count{  
+          display: flex;
+          justify-content: space-between;
+          div {
+              background-color: $primary-color-light;
+              width: 23%;
+              height: 180px;
+              border-radius: 12px;
+              box-shadow: $box-shadow;
+              overflow: hidden;
+              .icon{
+                width: 70px;
+                height: 70px;
+              }
+              p{
+                margin-top: 30px;
+                text-align: center;
+                font-size: 28px;
+                font-weight: bold;
+                color: rgb(34, 41, 99);
+              }
+          }
+      }
+      .container-stat {
+          background-color: $primary-color-light;
+          max-width: auto;
+          height: 320px;
+          margin-top: 4vh;
+          border-radius: 12px;
+          box-shadow: $box-shadow;
+          overflow: hidden;
+      }
+  }  
+}
+
+.dark-mode {
+  height: 100%;
+  background-color: $black;
+  .head{
+    background-color: $black;
+    color: $white;
+    h2{
+      color: $white
+    }
+  }
+
+  .container{
+    padding: 2.2% 2% 1% 2%;
+    .container-count{  
+        div {
+            background-color: $fonce;
+            box-shadow:  0 0 25px rgba(219, 216, 216, 0.356);
+            p{
+              color: $primary-color-dark;
+            }
+        }
+    }
+    .container-stat {
+        background-color: $fonce;
+        box-shadow:  0 0 25px rgba(219, 216, 216, 0.356);
+    }
+}  
+  
+}

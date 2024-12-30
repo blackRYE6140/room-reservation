@@ -1,0 +1,92 @@
+
+<div class="body" [ngClass]="{ 'dark-mode': darkMode }">
+  <div class="head">
+      <h2 >ROOMS DETAILS</h2>
+      <div class="search-bar"> 
+        <input class="search-input" type="text" [(ngModel)]="searchKeyword" (input)="searchChambre()" placeholder="Search..." >
+      </div>
+        <button class="add-btn" (click)="toggleModal()"> <i class="fas fa-plus"></i> add room</button>
+      
+  </div>
+
+
+  
+  <div class="content">
+    <div class="table">
+      <table>
+        <thead >
+          <tr >
+            <th>numch</th>
+            <th>typech</th>
+            <th>nomch</th>
+            <th>nbrperso</th>
+            <th>prix</th>
+            <th>action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let ch of resultData | paginate: { itemsPerPage: pageSize, currentPage: p }">
+            <td>{{ch.numch}}</td>
+            <td>{{ch.typech}}</td>
+            <td>{{ch.nomch}}</td>
+            <td>{{ch.nbrperso}}</td>
+            <td>{{ch.prix}}Ar</td>
+            <td>
+              <button class="btn btn-delete" (click)="openConfirmationModal('delete', ch.numch)">Delete</button>
+              <button (click)="editChambre(ch)" class="btn btn-edit">Edit</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+      <pagination-controls (pageChange)="p = $event"></pagination-controls>
+      
+  </div>
+    
+
+
+  <div class="modal-overlay" *ngIf="showModal">
+    <div class="modal" >
+      <div class="modal-header">
+        <h2>{{ selectedChambreId ? 'update Room' : 'Add Room' }}</h2>
+        <button class="close-btn" (click)="toggleModal()">X</button>
+      </div>
+      <div class="modal-content">
+        <label for="numch">numch:</label>
+        <input type="text" id="numch" [(ngModel)]="createChambre.numch"  [(ngModel)]="numchController"  />
+        <div *ngIf="numchController === ''" class="error-message">numch is required</div>
+  
+        <label for="typech">typech:</label>
+        <select name="typech" id="" [(ngModel)]="createChambre.typech">
+          <option value="Bungalow">Bungalow</option>
+          <option value="Gite">Gite</option>
+        </select>
+  
+        <label for="nomch">nomch:</label>
+        <select name="nomch" id="" [(ngModel)]="createChambre.nomch">
+          <option value="Familliale">Familliale</option>
+          <option value="Twin">Twin</option>
+          <option value="Double">Double</option>
+          <option value="Gite">Gite</option>
+        </select>
+  
+        <label for="nbrperso">nbrperso:</label>
+        <input type="text" id="nbrperso"  [(ngModel)]="createChambre.nbrperso" [(ngModel)]="nbrpersoController"  (keyup)="regnbrperso(nbrpersoController)"/>
+        <div *ngIf="nbrpersoController === ''" class="error-message">nbrperso is required</div>
+  
+        <label for="prix">prix:</label>
+        <input type="text" id="prix"  [(ngModel)]="createChambre.prix" [(ngModel)]="prixController"  (keyup)="regprix(prixController)"/>
+        <div *ngIf="prixController === ''" class="error-message">numch is required</div>
+  
+        <button (click)="openConfirmationModal('update', selectedChambreId)">{{ selectedChambreId ? 'Update' : 'Save' }}</button>
+      </div>
+    </div>
+    </div>
+</div>    
+  
+
+
+
+
+
+

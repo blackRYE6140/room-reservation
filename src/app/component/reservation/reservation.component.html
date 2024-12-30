@@ -1,0 +1,166 @@
+<div class="body" [ngClass]="{ 'dark-mode': darkMode }">
+  <div class="head">
+    <h2>RESERVATIONS DETAILS </h2>
+    <div class="search-bar">
+      <input class="search-input" type="text" id="search" (input)="search($event)" placeholder="Search All ..." [ngClass]="{'hidden': searchByDate}">
+      <!-- <i class="fa fa-search search-icon" [ngClass]="{'hidden': searchByDate}"></i> -->
+
+      <div class="date-search" [ngClass]="{'hidden': !searchByDate}">
+          <input class="date-input" type="date" [(ngModel)]="startDate">
+          <input class="date-input" type="date" [(ngModel)]="endDate">
+          <button class="search-button" (click)="searchReservation(startDate, endDate)">
+              <i class="fa fa-search"></i> <!-- Utilisation de l'icône de recherche -->
+          </button>
+          <button class="clear-button" (click)="clearSearch()">
+              <i class="fa fa-times"></i> <!-- Utilisation de l'icône de suppression -->
+          </button>
+      </div>
+      <select (change)="toggleSearchMode($event)">
+          <option value="all">All</option>
+          <option value="date">Date</option>
+      </select> 
+  </div>
+    <!-- <div class="search-bar">
+      <input class="search-input" type="text" id="search" (input)="search($event)" placeholder="All Search...">
+      
+      <input type="date" [(ngModel)]="startDate">
+      <input type="date" [(ngModel)]="endDate">
+      <button (click)="searchReservation(startDate, endDate)">Date search</button>
+
+    </div> -->
+    <button class="add-btn" (click)="toggleModalres()"> <i class="fas fa-plus"></i> add room</button>
+
+  </div>
+
+
+
+  <div class="content">
+    <div class="table">
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>numch</th>
+            <th>dateres</th>
+            <th>datearr</th>
+            <th>datedep</th>
+            <th>avance</th>
+            <th>prixres</th>
+            <th>prixtotal</th>
+            <th>etat</th>
+            <th>action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let res of resultData | paginate: { itemsPerPage: pageSize, currentPage: p }"
+            (click)="selectReservation(res)">
+            <td>{{res.idres}}</td>
+            <td>{{res.numch}}</td>
+            <td>{{res.dateres}}</td>
+            <td>{{res.datearr}}</td>
+            <td>{{res.datedep}}</td>
+            <td>{{res.avance}}</td>
+            <td>{{res.prixres}}</td>
+            <td>{{res.prixtotal}}</td>
+            <td>{{res.etat}}</td>
+            <td>
+              <button (click)="openConfirmationModal('delete', res.idres)">Delete</button>
+              <button (click)="editReservation(res)">Edit</button>
+              <button (click)="generatePDF(selectedReservation)" *ngIf="selectedReservation">bill</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <!-- <i class="fas fa-file-invoice" style="margin: 60px; font-size: 28px; color: blueviolet;" (click)="generatePDF()"></i> -->
+    </div>
+    <pagination-controls (pageChange)="p = $event"></pagination-controls>
+
+
+
+    <div class="modal-overlay" *ngIf="showModal">
+      <div class="modal">
+        <div class="modal-header">
+          <h2>{{ selectedReservationId ? 'update Reservation' : 'Add Reservation' }}</h2>
+          <button class="close-btn" (click)="toggleModalres()">X</button>
+        </div>
+        <div class="modal-content">
+          <div class="container">
+            <div class="container-ch-cli">
+              <div>
+                <h4>Client</h4>
+                <p>
+                  <select id="idcli" [(ngModel)]="createReservation.idcli">
+                    <option *ngFor="let client of IdcliData" [value]="client.idcli">
+                        {{ client.nomcli + " " + " " + client.idcli }}
+                    </option>
+                </select>
+                
+                  
+                </p>
+                <!-- <p>
+                  <input type="text" />
+                </p> -->
+              </div>
+              <div>
+                <h4>Chambre</h4>
+                <div style="width: 100%;
+                            height: 140px;
+                            max-height: 140px;
+                            box-shadow: none;
+                            overflow-y: scroll;"
+                >
+                  <ng-container *ngFor="let roomGroup of roomGroups">
+                    <ul>
+                      <li *ngFor="let room of roomGroup">
+                        <input type="checkbox" [id]="room" (change)="onRoomCheckboxChange($event, room)">
+                        <label [for]="room">{{ room }}</label>
+                      </li>
+                    </ul>
+                  </ng-container>
+                </div>
+              </div>
+
+
+            </div>
+
+            <div class="container-res">
+              <div>
+                <label for="dateres">dateres:</label>
+                <input type="date" id="dateres" placeholder="date de reservation"
+                  [(ngModel)]="createReservation.dateres" />
+                <label for="datearr">datearr:</label>
+                <input type="date" id="datearr" (input)="calculateTotalPrice()" placeholder="date d'arrivé"
+                  [(ngModel)]="createReservation.datearr" />
+                <label for="datedep">datedep:</label>
+                <input type="date" id="datedep" (input)="calculateTotalPrice()" placeholder="date depart "
+                  [(ngModel)]="createReservation.datedep" />
+                <label for="avance">avance:</label>
+                <input type="text" id="avance" (input)="calculateTotalPrice()" placeholder="0"
+                  [(ngModel)]="createReservation.avance" />
+
+              </div>
+              <div>
+                <label for="prixres">prixres:</label>
+                <input type="text" id="prixres" placeholder="0" (input)="calculateTotalPrice()"
+                  [(ngModel)]="createReservation.prixres" />
+                <label for="prixtotal">prixtotal(reste):</label>
+                <input type="text" id="prixtotal" placeholder="0" (input)="calculateTotalPrice()"
+                  [(ngModel)]="createReservation.prixtotal" />
+                <label for="etat">etat:</label>
+                <select id="etat" [(ngModel)]="createReservation.etat">
+                  <option value="" disabled selected>Choisir un état</option>
+                  <option value="Confirmée">Confirmée</option>
+                  <option value="En attente">En attente</option>
+                  <option value="Annulé">Annulé</option>
+                </select>
+                
+
+                <button (click)="openConfirmationModal('update', selectedReservationId)">Save reservation</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

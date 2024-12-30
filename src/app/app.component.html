@@ -1,0 +1,55 @@
+<div  class="container" [ngClass]="{ 'dark-mode': darkMode }">
+    <div class="sidenav" [ngClass]="collapsed ? 'sidenav-collapsed':'' " *ngIf="!collapsedSideBar" >
+      <div class="logo-container">
+        <img class="logo" src="../assets/image/logo_karibo.png" alt="" (click)="toggleCollapse()">
+        <div *ngIf="collapsed" class="logo-text" > <div id="animated-text"></div></div>
+      </div>
+      <ul class="sidenav-nav">
+        <li>
+          <a routerLink="/dashboard">
+            <i class="fas fa-tachometer-alt"></i>
+            <span *ngIf="collapsed">Dashboard</span>
+          </a>
+        </li>
+        <li>
+          <a routerLink="/chambre">
+            <i class="fa fa-bed"></i>
+            <span *ngIf="collapsed">Rooms</span>
+          </a>
+        </li>
+        <li>
+          <a routerLink="/client">
+            <i class="fa fa-user"></i>
+            <span *ngIf="collapsed">Clients</span>
+          </a>
+        </li>
+        <li>
+          <a routerLink="/reservation">
+            <i class="fa fa-calendar-check"></i>
+            <span *ngIf="collapsed">Reservation</span>
+          </a>
+        </li>
+        <li>
+          <a (click)="toggleDarkMode()">
+            <div *ngIf="!darkMode">
+              <i class="fas fa-moon"></i>
+          </div>
+          <div *ngIf="darkMode">
+              <i class="fas fa-sun"></i>
+          </div>
+            <span *ngIf="collapsed">{{ darkMode ? 'Light mode' : 'Dark mode' }}</span>
+          </a>
+        </li>
+        <li>
+          <a routerLink="/login">
+            <i class="fa fa-sign-out-alt"></i>
+            <span *ngIf="collapsed">Log out</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  <div class="content">
+    <router-outlet></router-outlet>
+  </div>
+</div>
+  

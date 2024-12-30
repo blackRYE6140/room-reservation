@@ -1,0 +1,150 @@
+$primary-color-light: #ecf0fe;
+$secondary-color-light: #201f1f;;
+
+$primary-color-dark: #201f1f;
+$secondary-color-dark: #ecf0fe;
+
+$indigo:rgb(39, 4, 116);
+$white:#fff;
+$black:#292929;
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  display: flex;
+}
+
+.content {
+  flex: 1; /* Le contenu prend tout l'espace restant */
+}
+
+.sidenav {
+  background: $primary-color-light;
+  height: 100vh;
+  transition: all 0.5s ease;
+  z-index: 1;
+  top: 0;
+  width: 5rem;
+  box-shadow: 0.033rem 0 1.25rem 0 #8690a3;
+
+  .logo-container {
+    display: flex;
+    align-items: center;
+    padding: 1rem 0.7rem 0 0.7rem;
+    width: 100%;
+
+    .logo {
+      background: $white;
+      text-align: center;
+      width: 3rem;
+      height: 2.3rem;
+      min-width: 3rem;
+      border-radius: 0.313rem;
+      padding: 0.313rem;
+      font-size: 24px;
+      font-weight: 900;
+      cursor: pointer;
+      border: none;
+    }
+
+    .logo-text {
+      margin-left: 0.4rem;
+      font-size: 16px;
+      font-weight: 700;
+      text-align: start;
+      color:$black;
+    }
+
+    .btn-close {
+      margin-left: auto;
+      cursor: pointer;
+      width: 2rem;
+      border-radius: 50%;
+      background-color: transparent;
+      border: none;
+
+      
+    }
+  }
+}
+
+.sidenav-collapsed {
+  width: 13rem;
+}
+
+.sidenav-nav {
+  list-style: none;
+  padding: 0.938rem;
+  margin-top: 10vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+
+  li {
+    width: 100%;
+    margin-bottom: 0.625rem;
+
+    a {
+      display: flex;
+      align-items: center;
+      padding-left: 1rem;
+      height: 3rem;
+      background-color: $white;
+      color: $secondary-color-light;
+      text-decoration: none;
+      border-radius: 0.65rem;
+      transition: all 0.3s ease;
+
+      i {
+        font-size: 22px;
+        text-align: center;
+        margin: 0 0.5rem;
+        text-align: center;
+
+        .fa {
+          width: 30px;
+          height: 30px;
+        }
+      }
+
+      span {
+        margin-left: 1.5rem;
+      }
+    }
+
+    &:hover {
+      a {
+        color: $indigo;
+      }
+    }
+
+  }
+}
+
+
+.dark-mode {
+  .sidenav {
+    background: $primary-color-dark;
+    .logo-container {
+      .logo-text {
+        color:$white;
+      }
+    }
+  }
+
+  .sidenav-nav {
+    li {
+      a {
+        background-color:$black;
+        color: $secondary-color-dark;
+        &:hover {
+          color: $indigo;
+        }
+      }
+    }
+  }
+}

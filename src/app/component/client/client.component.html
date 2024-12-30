@@ -1,0 +1,104 @@
+<div class="body"  [ngClass]="{ 'dark-mode': darkMode }">
+    <div class="head">
+        <h2 >CLIENTS DETAILS </h2>
+        <div class="search-bar"> 
+            <input class="search-input" type="text" [(ngModel)]="searchKeyword" (input)="searchClient()" placeholder="Search..." >
+        </div>
+          <button class="add-btn" (click)="toggleModal()"> <i class="fas fa-plus"></i> add client</button>
+        
+    </div>
+
+
+  
+    <div class="content">
+      <div class="table">
+          <table>
+          <thead >
+            <tr >
+              <th>Id</th>
+              <th>typecli</th>
+              <th>nomcli</th>
+              <th>pieceidentite</th>
+              <th>numidentite</th>
+              <th>typecontact</th>
+              <th>contact</th>
+              <th>nationalite</th>
+              <th>action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let cli of resultData | paginate: { itemsPerPage: pageSize, currentPage: p }">
+              <td>{{cli.idcli}}</td>
+              <td>{{cli.typecli}}</td>
+              <td>{{cli.nomcli}}</td>
+              <td>{{cli.pieceidentite}}</td>
+              <td>{{cli.numidentite}}</td>
+              <td>{{cli.typecontact}}</td>
+              <td>{{cli.contact}}</td>
+              <td>{{cli.nationalite}}</td>
+              <td>
+                <button class="btn btn-delete" (click)="openConfirmationModal('delete', cli.idcli)">Delete</button>
+                <button (click)="editClient(cli)" class="btn btn-edit">Edit</button>
+                <button (click)="reserver()">res</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <pagination-controls (pageChange)="p = $event"></pagination-controls>
+    
+
+
+      <div class="modal-overlay" *ngIf="showModal">
+        <div class="modal" >
+          <div class="modal-header">
+            <h2>{{ selectedClientId ? 'Update Client' : 'Add Client' }}</h2>
+            <button class="close-btn" (click)="toggleModal()">X</button>
+          </div>
+          <div class="modal-content">
+              <label for="typecli">typecli:</label>
+              <select name="typecli" id="" [(ngModel)]="createClient.typecli">
+                <option value="Angence de voyage">Agence de voyage</option>
+                <option value="societe">Societé</option>
+                <option value="particulier">Particulier</option>
+              </select>
+          
+              <label for="nomcli">nomcli:</label>
+              <input type="text" id="nomcli" [(ngModel)]="createClient.nomcli" [(ngModel)]="nomcliController"  (keyup)="regnomcli(nomcliController)"/>
+              <div *ngIf="nomcliController === ''" class="error-message">nomcli is required</div>
+          
+              <label for="pieceidentite">pieceidentite:</label>
+              <select name="pieceidentite" id="" [(ngModel)]="createClient.pieceidentite">
+                <option value="CIN">CIN</option>
+                <option value="Passeport">Passeport</option>
+              </select>
+          
+              <label for="numidentite">numidentite:</label>
+              <input type="text" id="numidentite"  [(ngModel)]="createClient.numidentite" [(ngModel)]="numidentiteController" (keyup)="regnumidentite(numidentiteController)"/>
+              <div *ngIf="numidentiteController === ''" class="error-message">numidentite is required</div>
+          
+              <label for="typecontact">typecontact:</label>
+              <select name="typecontact" id="" [(ngModel)]="createClient.typecontact">
+                <option value="Téléphone">Téléphone</option>
+                <option value="Accueil">Accueil</option>
+                <option value="Email">Email</option>
+              </select>
+          
+              <label for="contact">contact:</label>
+              <input type="text" id="contact"  [(ngModel)]="createClient.contact" [(ngModel)]="contactController" (keyup)="regcontact(contactController)"/>
+              <div *ngIf="contactController === ''" class="error-message">contact is required</div>
+          
+              <label for="nationalite">nationalité:</label>
+              <input type="text" id="nationalite"  [(ngModel)]="createClient.nationalite" [(ngModel)]="nationaliteController" (keyup)="regnationalite(nationaliteController)"/>
+              <div *ngIf="nationaliteController === ''" class="error-message">nationalite is required</div>
+              
+            <button (click)="openConfirmationModal('update', selectedClientId)">{{ selectedClientId ? 'Update' : 'Save' }}</button>
+          </div>
+        </div>
+      </div>
+  </div>
+
+  
+</div>   
+
+  

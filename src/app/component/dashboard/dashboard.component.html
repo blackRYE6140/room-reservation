@@ -1,0 +1,28 @@
+<div class="body" [ngClass]="{ 'dark-mode': darkMode }">
+    <div class="head">
+        <h2>DASHBOARD</h2>
+        
+    </div>
+
+    <div class="container">
+        <div class="container-count">
+            <div><img class="icon" src="../../../assets/image/chart-dynamic-premium.png" ><span>ROOMS</span>  <p>{{nb_chambres}}</p></div>
+            <div><img class="icon" src="../../../assets/image/card-dynamic-premium.png" ><span></span> CLIENTS <p>{{nb_clients}}</p></div>
+            <div><img class="icon" src="../../../assets/image/computer-dynamic-premium.png" ><span>RESERVATION</span> <p>{{nb_reservations}}</p></div>
+            <div><img class="icon" src="../../../assets/image/lock-dynamic-premium.png" ><span>USERS</span> <p>{{nb_utilisateurs}}</p> </div>
+        </div>
+
+        <div class="container-stat" style="display: flex; justify-content: space-between;">
+            <div style="margin-top: 20px; width: 35%; height: auto; ">
+                <div>
+                    <canvas id="myChart1"></canvas>
+                </div>
+                <div>
+                    <canvas id="myChart3"></canvas>
+                </div>
+            </div>
+            <div style="width: 63%; height: auto; "><canvas id="myChart2"></canvas></div>
+        </div>
+                    
+    </div>
+</div>
