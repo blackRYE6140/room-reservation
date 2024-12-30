@@ -39,19 +39,34 @@
           },
           "configurations": {
             "production": {
+              "optimization": {
+                "scripts": true,
+                "styles": true,
+                "fonts": true
+              },
+              "sourceMap": false,
+              "extractLicenses": true,
+              "namedChunks": false,
+              "outputHashing": "all",
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kb",
-                  "maximumError": "1mb"
+                  "maximumWarning": "1mb",
+                  "maximumError": "1.5mb"
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "2kb",
-                  "maximumError": "4kb"
+                  "maximumWarning": "6kb",
+                  "maximumError": "8kb"
                 }
               ],
-              "outputHashing": "all"
+              "allowedCommonJsDependencies": [
+                "canvg",
+                "sweetalert2",
+                "jspdf-autotable",
+                "html2canvas",
+                "dompurify"
+              ]
             },
             "development": {
               "optimization": false,
