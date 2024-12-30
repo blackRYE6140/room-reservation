@@ -91,7 +91,7 @@ export class DashboardComponent {
   }
   
   getDataAndUpdateChart1() {
-    this.http.get<any>('http://localhost:8081/api/dashboard/nat').subscribe(
+    this.http.get<any>('https://reservation-back-bd-api.vercel.app/api/dashboard/nat').subscribe(
       (res) => {
         const data = res.data;
         const labels = data.map((item: any) => item.nat);
@@ -166,7 +166,7 @@ export class DashboardComponent {
   
 
     getDataAndUpdateChart2() {
-      this.http.get<any>('http://localhost:8081/api/dashboard/clientNbr-by-date').subscribe(
+      this.http.get<any>('https://reservation-back-bd-api.vercel.app/api/dashboard/clientNbr-by-date').subscribe(
         (res) => {
           const data = res.data;
           const labels = data.map((item: any) => item.date_reservation);
@@ -223,7 +223,7 @@ export class DashboardComponent {
         }
       });  }
   getDataAndUpdateChart3() {
-    this.http.get<any>('http://localhost:8081/api/dashboard/sum-by-month').subscribe(
+    this.http.get<any>('https://reservation-back-bd-api.vercel.app/api/dashboard/sum-by-month').subscribe(
       (res) => {
         const data = res.data;
         const labels = data.map((item: any) => item.month);
