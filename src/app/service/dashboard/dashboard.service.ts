@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-const baseUrl = 'https://reservation-back-bd-api.vercel.app/api/dashboard';
+const baseUrl = 'https://render-api-eb6f.onrender.com/api/dashboard';
 
 @Injectable({
   providedIn: 'root'
