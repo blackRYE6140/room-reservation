@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Chambre } from '../../class/chambre/chambre';
 import { Observable } from 'rxjs';
 
-const baseUrl = 'https://render-api-eb6f.onrender.com/api/chambre';
+const baseUrl = 'https://hkejpxcvmjrtueiedgdjjhiulpqoiertdgdcgcdd.vercel.app/api/chambre';
 @Injectable({
   providedIn: 'root'
 })
