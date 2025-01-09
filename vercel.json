@@ -1,6 +1,5 @@
 {
   "version": 2,
-  "regions": ["cdg1"],
   "builds": [
     {
       "src": "index.html",
